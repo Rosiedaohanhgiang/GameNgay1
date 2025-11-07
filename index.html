@@ -1,0 +1,212 @@
+<!DOCTYPE html><html lang="vi"><head><meta name="x-poe-datastore-behavior" content="local_only"><meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline' 'unsafe-eval' data: blob: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://code.jquery.com https://unpkg.com https://d3js.org https://threejs.org https://cdn.plot.ly https://stackpath.bootstrapcdn.com https://maps.googleapis.com https://cdn.tailwindcss.com https://ajax.googleapis.com https://kit.fontawesome.com https://cdn.datatables.net https://maxcdn.bootstrapcdn.com https://code.highcharts.com https://tako-static-assets-production.s3.amazonaws.com https://www.youtube.com https://fonts.googleapis.com https://fonts.gstatic.com https://pfst.cf2.poecdn.net https://puc.poecdn.net https://i.imgur.com https://wikimedia.org https://*.icons8.com https://*.giphy.com https://picsum.photos https://images.unsplash.com; frame-src 'self' https://www.youtube.com https://trytako.com; child-src 'self'; manifest-src 'self'; worker-src 'self'; upgrade-insecure-requests; block-all-mixed-content;">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Ôn Bài - Ngày 1 &amp; 2</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #f8fafc;
+      margin: 0;
+      padding: 20px;
+      color: #333;
+    }
+    .container {
+      max-width: 680px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #0f4c81;
+    }
+    .question {
+      font-size: 18px;
+      margin-top: 20px;
+    }
+    .options {
+      margin-top: 10px;
+    }
+    .option {
+      background: #e7f0fa;
+      padding: 10px;
+      margin: 8px 0;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .option:hover {
+      background: #d0e7fb;
+    }
+    .option.correct {
+      background: #c8f7c5;
+    }
+    .option.wrong {
+      background: #f7c5c5;
+    }
+    .feedback {
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    #nextBtn {
+      margin-top: 20px;
+      display: none;
+      padding: 10px 20px;
+      background: #0f4c81;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #result {
+      text-align: center;
+      font-size: 20px;
+      font-weight: bold;
+      margin-top: 30px;
+    }
+  </style>
+<script src="https://puc.poecdn.net/authenticated_preview_page/syncedState.3f7572448765332f3047.js"></script></head>
+<body>
+
+  <div class="container">
+    <h1>Ôn Tập Ngày 1 &amp; 2</h1>
+    <div id="quiz">
+      <div class="question" id="question"></div>
+      <div class="options" id="options"></div>
+      <div class="feedback" id="feedback"></div>
+      <button id="nextBtn" onclick="nextQuestion()">Câu tiếp theo</button>
+    </div>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const questions = [
+      // Ngày 1
+      {
+        question: "Mục tiêu chính của Coaching là gì?",
+        options: ["Truyền tải kiến thức", "Chia sẻ kinh nghiệm", "Khai phá tiềm năng", "Phân tích tâm lý"],
+        correct: 2
+      },
+      {
+        question: "Lắng nghe Toàn diện là cấp độ lắng nghe mấy?",
+        options: ["1", "2", "3", "4"],
+        correct: 2
+      },
+      {
+        question: "Câu hỏi nào sau đây là câu hỏi MỞ?",
+        options: [
+          "Bạn đã thử cách A chưa?",
+          "Bạn gặp khó khăn gì trong việc hoàn thành?",
+          "Bạn có hoàn thành đúng hạn không?",
+          "Có phải là do thiếu thời gian không?"
+        ],
+        correct: 1
+      },
+      {
+        question: "Trong mô hình GROW, bước W là gì?",
+        options: ["Will – Cam kết hành động", "Way – Cách thực hiện", "Win – Thành công", "Wish – Mong muốn"],
+        correct: 0
+      },
+      {
+        question: "Yếu tố quan trọng nhất để xây dựng lòng tin là gì?",
+        options: ["Chuyên môn", "Thân mật", "Sự nhất quán & chân thành", "Sự nổi tiếng"],
+        correct: 2
+      },
+
+      // Ngày 2
+      {
+        question: "Mô hình phản hồi SBI gồm các yếu tố nào?",
+        options: ["Situation - Behavior - Impact", "Speak - Behave - Improve", "Structure - Balance - Insight", "Situation - Belief - Intention"],
+        correct: 0
+      },
+      {
+        question: "Nhu cầu tâm lý nào KHÔNG thuộc Thuyết Tự Quyết?",
+        options: ["Tự chủ", "Thành tích", "Năng lực", "Kết nối"],
+        correct: 1
+      },
+      {
+        question: "Câu hỏi 'Nếu không có giới hạn gì, bạn sẽ làm gì?' nằm trong bước nào của GROW?",
+        options: ["Goal", "Reality", "Options", "Will"],
+        correct: 2
+      },
+      {
+        question: "Khi nhân sự đóng vai 'nạn nhân' trong tam giác kịch tính, coach nên hỏi gì?",
+        options: [
+          "Bạn muốn tôi làm giúp không?",
+          "Lỗi là do ai?",
+          "Bạn có thể làm gì để thay đổi tình hình?",
+          "Tại sao bạn lại sai?"
+        ],
+        correct: 2
+      },
+      {
+        question: "Mục tiêu của văn hóa coaching là gì?",
+        options: [
+          "Tăng giám sát và kiểm soát",
+          "Tạo môi trường học hỏi & phát triển",
+          "Thay thế đánh giá hiệu suất truyền thống",
+          "Loại bỏ các cuộc họp 1:1"
+        ],
+        correct: 1
+      }
+    ];
+
+    let currentQuestion = 0;
+    let score = 0;
+
+    function showQuestion() {
+      const q = questions[currentQuestion];
+      document.getElementById("question").textContent = `Câu ${currentQuestion + 1}: ${q.question}`;
+      const optionsDiv = document.getElementById("options");
+      optionsDiv.innerHTML = "";
+      q.options.forEach((option, idx) => {
+        const btn = document.createElement("div");
+        btn.className = "option";
+        btn.textContent = option;
+        btn.onclick = () => checkAnswer(idx);
+        optionsDiv.appendChild(btn);
+      });
+      document.getElementById("feedback").textContent = "";
+      document.getElementById("nextBtn").style.display = "none";
+    }
+
+    function checkAnswer(selected) {
+      const q = questions[currentQuestion];
+      const options = document.querySelectorAll(".option");
+      options.forEach((opt, idx) => {
+        opt.onclick = null;
+        if (idx === q.correct) opt.classList.add("correct");
+        if (idx === selected && idx !== q.correct) opt.classList.add("wrong");
+      });
+
+      if (selected === q.correct) {
+        document.getElementById("feedback").textContent = "✅ Chính xác!";
+        score++;
+      } else {
+        document.getElementById("feedback").textContent = "❌ Chưa đúng.";
+      }
+
+      document.getElementById("nextBtn").style.display = "inline-block";
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+      if (currentQuestion < questions.length) {
+        showQuestion();
+      } else {
+        showResult();
+      }
+    }
+
+    function showResult() {
+      document.getElementById("quiz").style.display = "none";
+      document.getElementById("result").innerHTML = `🎉 Bạn đã hoàn thành!<br>Điểm số: ${score}/${questions.length}<br><br>${score >= 8 ? "🌟 Xuất sắc! Bạn hiểu rõ nội dung khóa học." : score >= 5 ? "👍 Khá tốt! Hãy ôn tập thêm một chút." : "📘 Cần ôn lại kỹ hơn. Đừng nản nhé!"}`;
+    }
+
+    showQuestion();
+  </script>
+
+
+</body></html>
